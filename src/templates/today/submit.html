@@ -1,0 +1,201 @@
+{% extends "base_today.html" %}
+
+{% load static from staticfiles %}
+{% block status_message %}
+	{% if errors %}
+		<div class="alert alert-warning" role="alert">
+    		Повиправляйте будь ласка наступні помилки
+  		</div>
+	{% endif %}
+{% endblock status_message %}
+
+{% block content %}
+<div class="main-wrapper">
+	    <div class="main">
+	        <div class="main-inner">
+	        	
+	            <div class="content">
+	                <div class="container">
+	<form action="." method="post" enctype="multipart/form-data"
+      role="form" class="form-horizontal">	
+	{% csrf_token %}	
+		<fieldset>
+			<legend>Розмістити подію</legend>		
+
+			<div class="form-group {% if errors.title %}has-error{% endif %}">
+				<label>Назва події*</label>
+				<input type="text" class="form-control bordered" value="{{ request.POST.title }}"
+				name="title" id="title">
+				<span class="help-block">{{ errors.title }}</span>
+			</div><!-- /.form-group -->
+
+			<div class="form-group {% if errors.description %}has-error{% endif %}">
+				<label>Описи події *</label>
+				<textarea class="form-control bordered" rows="6" value="{{ request.POST.description }}"
+				name="description" id="description"></textarea>
+				<span class="help-block">{{ errors.description }}</span>
+			</div><!-- /.form-group -->
+		</fieldset>
+
+		<fieldset>
+			<!-- <legend>Payment Information</legend> -->
+
+			<div class="row">
+				<div class="col-sm-4">
+				    <div class="form-group {% if errors.category %}has-error{% endif %}">
+				        <label>Категорія *</label>
+
+			            <select  name="category" id="category" class="form-control bordered ">
+			                <option value="">Виберіть категорію для події *</option>
+		{% for group in groups %}
+		
+        <option value="{{ group.id }}" {% if group.id == request.POST.category|add:0 %}selected="1"{% endif %}>{{ group.title }}</option>
+        {% endfor %}
+			            </select>
+			            <span class="help-block">{{ errors.category }}</span>
+				    </div><!-- /.form-group -->
+			    </div><!-- /.col-* -->
+
+				<div class="col-sm-4">
+				    <div class="form-group {% if errors.event_day %}has-error{% endif %}">
+				        <label>Дата проведення *</label>
+
+				<input id="input_dateinput" type="text" value="{{ request.POST.event_day }}"
+             name="event_day" placeholder="Напр. 1984-12-30"
+             class="dateinput form-control bordered" />
+             <span class="help-block">{{ errors.event_day }}</span>
+				    </div><!-- /.form-group -->
+			    </div><!-- /.col-* -->
+
+			    <div class="col-sm-4">
+				    <div class="form-group {% if errors.event_time %}has-error{% endif %}">
+				        <label>Час проведеня *</label>
+
+			 <input id="event_time" type="text" value="{{ request.POST.event_time }}"
+             name="event_time" placeholder="Напр. 12:30"
+             class="dateinput form-control bordered" />
+             <span class="help-block">{{ errors.event_time }}</span>
+				    </div><!-- /.form-group -->
+			    </div><!-- /.col-* -->
+			</div><!-- /.row -->
+		</fieldset>
+
+		<fieldset>
+			<!-- <legend>Location</legend> -->
+
+			<div class="row">
+			
+
+				<div class="form-group {% if errors.location %}has-error{% endif %}">
+				<label>Місце проведення *</label>
+				
+				<input type="text" class="form-control bordered" value="{{ request.POST.location }}"
+				>
+				<span class="help-block">{{ errors.location }}</span>
+			</div><!-- /.form-group -->	
+
+			<input name="lat" type="text" value="{{ request.POST.latitude }}" style='visibility: hidden;'>
+  			<input name="lng" type="text" value="{{ request.POST.longitude }}" style='visibility: hidden;'>
+<!--   Address:    <input name="formatted_address" type="text" value=""> -->
+			</div><!-- /.row -->
+		</fieldset>
+
+		<fieldset>
+			<!-- <legend>Contact Information</legend> -->
+
+			<div class="row">
+
+			    <div class="col-sm-4">
+			        <div class="form-group">
+			            <label>Контактний телефон</label>
+			            <input name="contact_number" value="{{ request.POST.contact_number }}" type="text" class="form-control bordered">
+			        </div><!-- /.form-group -->
+			    </div><!-- /.col-* -->
+
+			    <div class="col-sm-4">
+			        <div class="form-group">
+			            <label>Ціна</label>
+			            <input name="price" value="{{ request.POST.price }}" type="text" class="form-control bordered">
+			        </div><!-- /.form-group -->
+			    </div><!-- /.col-* -->
+
+			    <div class="col-sm-4">
+			        <div class="form-group">
+			            <label>Придбати квитки</label>
+			            <input name="ticket" value="{{ request.POST.ticket }}" type="text" class="form-control bordered">
+			        </div><!-- /.form-group -->
+			    </div><!-- /.col-* -->
+
+<div class="col-sm-12">
+  <div class="form-group {% if errors.photo %}has-error{% endif %}">
+  	<div class="col-sm-2">
+  	<div class="photo-choose-image" id="photoXXX-photo" style="background-image: url('{% static 'img/event3.jpg' %}')"></div>
+  	</div>
+    <div class="col-sm-10 photo-choose-wrap">
+      <label>Фото</label>
+      <input type="file" value="" name="photoXXX" id="photoXXX"
+             class="form-control photo-choose" />
+      <label class="btn btn-primary btn-large photo-choose-button" for="photoXXX" id="photoXXX-text">Виберіть файл</label>
+      <span class="help-block">{{ errors.photo }}</span>
+      
+    </div>
+  </div>
+  </div>
+
+
+			</div>
+		</fieldset>
+
+		
+
+<!-- 		<fieldset>			
+			<legend>Additional Information</legend>		
+
+			<div class="checkbox">
+			    <label><input type="checkbox"> Send me newsletter</label>
+			</div>
+
+			<div class="checkbox">
+			    <label><input type="checkbox"> I agree with terms &amp; conditions</label>
+			</div>
+		</fieldset> -->
+
+		<div class="center">
+			<input type="submit" value="Добавити" name="add_button" class="btn btn-primary btn-large">
+
+		</div><!-- /.center -->
+	</form>
+</div><!-- /.container-fluid -->
+	            </div><!-- /.content -->
+	        </div><!-- /.main-inner -->
+	    </div><!-- /.main -->
+    </div><!-- /.main-wrapper -->
+
+{% endblock %}
+
+{% block extra_js %}
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfIsnTO2FmRi3kWyLD3Es-Hb_ump6744g&libraries=places"></script>
+  
+<script type="text/javascript" src="{% static 'js/jquery.geocomplete.js' %}"></script>
+<!-- <script type="text/javascript">
+ $(function () {
+                $('input.dateinput').datetimepicker({
+                    defaultDate: "11/1/2013",
+                    disabledDates: [
+                        moment("12/25/2013"),
+                        new Date(2013, 11 - 1, 21),
+                        "11/22/2013 00:53"
+                    ]
+                });
+            });
+	</script> -->
+<script type="text/javascript">
+	// $("input").geocomplete();
+	$("#geocomplete").geocomplete({ details: "form" });
+
+// Trigger geocoding request.
+$("button.find").click(function(){
+  $("input").trigger("geocode");
+});
+</script> 
+{% endblock extra_js %}

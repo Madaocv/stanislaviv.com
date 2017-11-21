@@ -1,0 +1,157 @@
+{% extends "base_today.html" %}
+{% load staticfiles thumbnail %}
+
+
+{% block extra_css %}
+
+<!-- 	<link rel="stylesheet" type="text/css" href="{% static 'hot/css/bootstrap.min.css' %}" /> -->
+	{#<link rel="stylesheet" type="text/css" href="{% static 'hot/css/style.css' %}" />#}
+	{#<link rel="stylesheet" type="text/css" href="{% static 'hot/css/color.css' %}" />#}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/color.css' %}" />
+{% endblock %}
+{% block status_message %}
+        {% if request.GET.status_message %}
+        <div class="alert alert-info" role="alert">{{ request.GET.status_message }}</div>
+        {% endif %}
+        {% endblock %}
+{% block content %}
+    <div class="main-wrapper">
+	    <div class="main">
+	        <div class="main-inner">
+	        	
+
+	            <div class="content">
+	                <div class="page-header pull-top">
+	<div class="page-header-inner">
+		<div class="container-fluid">
+
+		{% if request.path == '/events_todat/'%}
+			{% if events|length > 4 %}
+			<h1> {{events|length}} подій які відбудуться сьогодні </h1>
+			{% elif events|length == 1%}
+			<h1> {{events|length}} подія яка відбудeться сьогодні </h1>
+			{% elif events|length == 0%}
+			<h1> Нічого не буде відбуватись сьогодні </h1>
+			{% else %}
+			<h1> {{events|length}} події які відбудуться сьогодні </h1>
+			{% endif %}
+		{% elif request.path == '/events_soon/' %}
+		{% if events|length > 4 %}
+			<h1> {{events|length}} подій які відбудуться в ближайшому часі </h1>
+			{% elif events|length == 1%}
+			<h1> {{events|length}} подія яка відбудеться в ближайшому часі </h1>
+			{% elif events|length == 0%}
+			<h1> Нічого не буде відбуватись в ближайшому часі </h1>
+			{% else %}
+			<h1> {{events|length}} події які відбудуться в ближайшому часі </h1>
+			{% endif %}
+		
+		{% endif %}		
+		</div><!-- /.container-fluid -->
+	</div><!-- /.page-header-inner -->
+</div><!-- /.page-header -->
+
+<!-- <div class="container-fluid">
+	<ol class="breadcrumb">
+		<li><a href="index.html">EVE</a></li>
+		<li><a href="events.html">Events</a></li>
+		<li class="active">Recent Events</li>
+	</ol>
+</div> --><!-- /.container-fluid -->
+		<section>
+			<div class="block gray">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 column">
+							<div class="gallery-data">
+								<section id="options">
+									<span>Категорії:</span>
+									<div class="option-isotop">
+										<ul id="filter" class="option-set filters-nav" data-option-key="filter">
+											<li><a href="" class="selected" data-option-value="*">Всі</a></li>
+											{% for category in categoryes%}
+										<li><a href="" data-option-value=".{{category.slug}}">{{category.title}}</a></li>
+
+											{% endfor %}
+										</ul>
+									</div>
+								</section><!-- FILTER BUTTONS -->
+								<div class="row">
+									<div class="gallery gaps masonary lightbox">
+									{% for event in events%}
+									
+									
+										<div class="col-md-4 {{event.category.slug}}">
+											<div class="gallery-img">
+											{% thumbnail event.photo '370x383' crop='center' as image %}
+												<img src="{{ image.url }}" alt="" />
+											{% endthumbnail %}
+												<div class="gallery-overlay">
+													<span>{{event.event_day|date:"F j, o"}}</span>
+													<h5>Детальніше</h5>
+									
+									
+<a title="" href="{{ event.get_absolute_url }}"><!-- <img src="{% static 'hot/images/plus.png' %}" alt="" title="Volcano Adventure" /> --></a>
+												</div>
+												<div class="gallery-name">
+													<span>{{event.event_day|date:"F j, o"}}</span>
+													<h3>{{event.title}}</h3>
+												</div>
+											</div><!-- Gallery Image -->
+										</div>
+									{% endfor %}	
+										
+										
+									</div>
+								</div>
+							</div><!-- gallery-data -->	
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-9 col-xl-12">
+			<div class="center">
+				<!-- <ul class="pagination">
+
+					<li class="page-item">
+						<a class="page-link" href="#">
+							<i class="fa fa-chevron-left"></i>
+						</a>
+					</li>
+
+					<li class="page-item active"><a class="page-link" href="#">1</a></li>
+					<li class="page-item"><a class="page-link" href="#">2</a></li>
+					<li class="page-item"><a class="page-link" href="#">3</a></li>
+					<li class="page-item"><a class="page-link" href="#">4</a></li>
+					<li class="page-item"><a class="page-link" href="#">5</a></li>
+
+					<li class="page-item">
+						<a class="page-link" href="#">
+							<i class="fa fa-chevron-right"></i>
+						</a>
+					</li>
+				</ul> -->
+				<!-- /.pagination -->
+			</div><!-- /.center -->
+		</div><!-- /.col-* -->
+	</div><!-- /.row -->
+</div><!-- /.container-fluid -->
+	            </div><!-- /.content -->
+	        </div><!-- /.main-inner -->
+	    </div><!-- /.main -->
+    </div><!-- /.main-wrapper -->
+{% endblock %}
+{% block extra_js %}
+<!-- 	<script src="{% static 'hot/js/jquery.min.js' %}" type="text/javascript"></script> -->
+	{#<script src="{% static 'hot/js/jquery.isotope.min.js' %}" type="text/javascript"></script>#}
+	{#<script src="{% static 'hot/js/isotope-initialize.js' %}" type="text/javascript"></script>#}
+	{#<script src="{% static 'hot/js/script.js' %}" type="text/javascript"></script>#}
+	<script src="{% static 'js/jquery.isotope.min.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/isotope-initialize.js' %}" type="text/javascript"></script>
+	<script src="{% static 'js/script.js' %}" type="text/javascript"></script>
+{% endblock extra_js %}

@@ -1,0 +1,118 @@
+{% extends "base_today.html" %}
+
+{% load static from staticfiles %}
+{% load thumbnail %}
+{% block content %}	
+<div class="main-wrapper">
+	    <div class="main">
+	        <div class="main-inner">
+	        	
+
+	            <div class="content">
+	                <div class="hero hero-creative-wrapper">
+	<div class="hero-creative">
+		<div class="hero-creative-image" style="background-image: url('{% static 'img/tmp/fullsize.jpg' %}')">
+
+			<div class="hero-creative-title">
+				<h1>Вітаємо Вас друзі !</h1>
+				<h2>Розкажіть всім про <br>події нашого міста</h2>
+				<a href="{% url 'core:map' %}" class="btn btn-secondary btn-lg">Показати події на карті <i class="entypo-chevron-right"></i></a>
+			</div><!-- /.hero-creative-title -->
+
+			<!-- <div class="hero-creative-pin" style="transition-delay: 2.2s; bottom: 160px; left: 100px;">
+				<span class="hero-creative-pin-place"></span>
+				<div class="hero-creative-pin-title">
+					<h3><a href="#">Carneval Vestival</a></h3>
+					<h4>Emerson Street 90210</h4>
+				</div>
+			</div> -->
+
+			<!-- <div class="hero-creative-pin" style="transition-delay: 2.5s; bottom: 60px; left: 300px;">
+				<span class="hero-creative-pin-place"></span> 
+				<div class="hero-creative-pin-title">
+					<h3><a href="#">Movie Night</a></h3>
+					<h4>Emerson Street 90210</h4>
+				</div>
+			</div> -->		
+
+			<!-- <div class="hero-creative-pin" style="transition-delay: 3.3s; bottom: 200px; left: 530px;">
+				<span class="hero-creative-pin-place"></span> 
+				<div class="hero-creative-pin-title">
+					<h3><a href="#">Walking Tour</a></h3>
+					<h4>Emerson Street 90210</h4>
+				</div>
+			</div> -->		
+
+			<!-- <div class="hero-creative-pin" style="transition-delay: 3s; bottom: 130px; left: 750px;">
+				<span class="hero-creative-pin-place"></span> 
+				<div class="hero-creative-pin-title">
+					<h3><a href="#">Free Comedy</a></h3>
+					<h4>Emerson Street 90210</h4>
+				</div>
+			</div>	 -->
+
+			<!-- <div class="hero-creative-pin" style="transition-delay: 2.8s; bottom: 280px; left: 1000px;">
+				<span class="hero-creative-pin-place"></span> 
+				<div class="hero-creative-pin-title">
+					<h3><a href="#">Poetry Slam</a></h3>
+					<h4>Emerson Street 90210</h4>
+				</div>
+			</div> -->
+
+			<!-- <div class="hero-creative-pin" style="transition-delay: 3.2s; bottom: 180px; left: 1180px;">
+				<span class="hero-creative-pin-place"></span> 
+				<div class="hero-creative-pin-title">
+					<h3><a href="#">The Musical</a></h3>
+					<h4>Emerson Street 90210</h4>
+				</div>
+			</div>	 -->
+
+			<!-- <div class="hero-creative-pin" style="transition-delay: 2.7s; bottom: 100px; left: 1400px;">
+				<span class="hero-creative-pin-place"></span> 
+				<div class="hero-creative-pin-title">
+					<h3><a href="#">New York Ballet</a></h3>
+					<h4>Emerson Street 90210</h4>
+				</div>
+			</div> -->	
+
+			<!-- <div class="hero-scroll">
+				<div class="hero-scroll-mice">
+				</div>
+				<span>Scroll Down</span>
+			</div>							 -->
+		</div><!-- /.hero-image -->
+	</div><!-- /.hero-creative -->
+</div><!-- /.hero -->
+
+
+
+{% if partners %}
+<div class="partners">
+	<div class="container-fluid">
+		<div class="page-title page-title-fullwidth-description page-title-no-padding-top center">
+			<h2>Наші партнери</h2>
+
+
+			<!-- <p>
+				Vivamus viverra imperdiet efficitur. Fusce sagittis arcu sed fringilla blandit. In quis orci eu sapien porttitor feugiat pretium at metus. <br>Donec nec arcu sed augue convallis vestibulum vitae eget mauris.
+			</p> -->
+		
+		{% for partner in partners %}
+		<a href="{{partner.source_href}}" target="_blank">
+		{% thumbnail partner.photo '140x100' crop='center' as image %}
+												<img src="{{ image.url }}" alt="" />
+											{% endthumbnail %}
+			<!-- <img src="assets/img/tmp/partners/partner-1.png" alt="" height="50"> -->
+		</a>
+		{% endfor %}
+		</div>
+	</div><!-- /.container -->
+</div><!-- /.partners -->
+{% endif %}
+
+	            </div><!-- /.content -->
+	        </div><!-- /.main-inner -->
+	    </div><!-- /.main -->
+    </div><!-- /.main-wrapper -->
+{% endblock %}	
+

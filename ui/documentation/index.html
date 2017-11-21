@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>HTML recent documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/html.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="None" href="index.html#document-index"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html#document-index" class="icon icon-home"> HTML
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                recent
+              </div>
+            
+          
+
+          
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-file-structure">File Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-javascript">JavaScript</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-custom-colors">Custom Colors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-maps">Open Street Maps &amp; Google Maps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-libraries">Libraries</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html#document-index">HTML</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html#document-index">Docs</a> &raquo;</li>
+      
+    <li>HTML recent documentation</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentation">
+<h1>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h1>
+<p>Before starting to work with template, there are some basic concepts/technologies you need to be familiar with. Please
+check the Bootstrap framework and SASS for more information. These two technologies and the core of the template.</p>
+<p>There are some other essentials technologies used across the template files. Font Awesome is used for displaying
+the icons or jQuery for basic DOM manipulation. However these technogies are not mandatory to use. But learning
+these technologies will make easier site creation.</p>
+<div class="toctree-wrapper compound">
+<span id="document-file-structure"></span><div class="section" id="file-structure">
+<h2>File Structure<a class="headerlink" href="#file-structure" title="Permalink to this headline">¶</a></h2>
+<p>All CSS files are located inside assets/css folder. Template oriented files are generated from SASS source codes. You
+can find the SASS files insidede assets/scss. It is recommended to edit SASS files instead of CSS files because if you
+compile the SASS, you will loose all your changes.</p>
+<p>Images are located in assets/img. The tmp folder container sample images. In the package which you downloaded are situated
+the compressed images with the placeholders only.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Folder</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>assets/css</td>
+<td>CSS files</td>
+</tr>
+<tr class="row-odd"><td>assets/data</td>
+<td>JSON data for eg. maps</td>
+</tr>
+<tr class="row-even"><td>assets/fonts</td>
+<td>Font families</td>
+</tr>
+<tr class="row-odd"><td>assets/img</td>
+<td>Images</td>
+</tr>
+<tr class="row-even"><td>assets/libraries</td>
+<td>Libraries</td>
+</tr>
+<tr class="row-odd"><td>assets/scss</td>
+<td>SASS files</td>
+</tr>
+</tbody>
+</table>
+</div>
+<span id="document-javascript"></span><div class="section" id="javascript">
+<h2>JavaScript<a class="headerlink" href="#javascript" title="Permalink to this headline">¶</a></h2>
+<p>The main JavaScript files are located insided assets/js folder. The file is always named by template name.</p>
+<p>Each JavaScript functionality has its own code block. So if you are not interested in gallery functionality you
+can just remove that block and save the file.</p>
+</div>
+<span id="document-custom-colors"></span><div class="section" id="custom-colors">
+<h2>Custom Colors<a class="headerlink" href="#custom-colors" title="Permalink to this headline">¶</a></h2>
+<p>You can change the colors by editing and compiling the SASS file. File which contains all colors is located inside
+assets/scss/helpers/_variables.scss. You can change the primary color which is stored in $color-primary variable.</p>
+<p>After successful changing the primary color you can compile the SASS files. You must run the gulp compile command
+inside the root template directory. All CSS files will be replaced with the new version.</p>
+<div class="highlight-sass"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>$color-primary: #0BB7A5; // Change this variable
+$color-secondary: #4E4A4A;
+</pre></div>
+</td></tr></table></div>
+<div class="highlight-none"><div class="highlight"><pre>$ cd template-name
+$ npm install gulp gulp-sass
+$ gulp compile
+</pre></div>
+</div>
+</div>
+<span id="document-maps"></span><div class="section" id="open-street-maps-google-maps">
+<h2>Open Street Maps &amp; Google Maps<a class="headerlink" href="#open-street-maps-google-maps" title="Permalink to this headline">¶</a></h2>
+<p>The data for the maps are coming from the assets/data/markers.json file. The data are downloaded from the JSON file via
+the AJAX call. If you want to reuse this file for your custom markers, please use the same data structure and do not
+remove any JSON properties.</p>
+<div class="highlight-js"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">access_token</span> <span class="o">=</span> <span class="s1">&#39;YOUR_ACCESS_TOKEN_HERE&#39;</span><span class="p">;</span>
+
+<span class="nx">L</span><span class="p">.</span><span class="nx">tileLayer</span><span class="p">(</span><span class="s1">&#39;https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=&#39;</span> <span class="o">+</span> <span class="nx">access_token</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">scrollWheelZoom</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;mapbox.streets&#39;</span><span class="p">,</span>
+    <span class="nx">attribution</span><span class="o">:</span> <span class="s1">&#39;&lt;a href=&quot;http://www.mapbox.com/about/maps/&quot; target=&quot;_blank&quot;&gt;Terms &amp;amp; Feedback&lt;/a&gt;&#39;</span>
+<span class="p">}).</span><span class="nx">addTo</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</pre></div>
+</td></tr></table></div>
+<p>When using the leaflet please open main JavaScript file which is located inside assets/js folder. Open that file and
+lookg for the access_token variable which you will replace by your own token. You can create your own access token
+at www.mapbox.com.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Library</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Leaflet</td>
+<td>Mobile-friendly interactive maps.</td>
+</tr>
+<tr class="row-odd"><td>Gmap3</td>
+<td>A jQuery plugin to use google maps.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<span id="document-libraries"></span><div class="section" id="libraries">
+<h2>Libraries<a class="headerlink" href="#libraries" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="39%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Bootstrap</td>
+<td>HTML, CSS, and JS framework.</td>
+</tr>
+<tr class="row-odd"><td>FontAwesome</td>
+<td>Icon-graphic font used for site icons.</td>
+</tr>
+<tr class="row-even"><td>Owl Carousel 2</td>
+<td>Responsive carousel slider.</td>
+</tr>
+<tr class="row-odd"><td>Leaflet</td>
+<td>Mobile-friendly interactive maps.</td>
+</tr>
+<tr class="row-even"><td>Gmap3</td>
+<td>A jQuery plugin to use google maps.</td>
+</tr>
+<tr class="row-odd"><td>EzMark</td>
+<td>Stylize checkbox and radiobuttons.</td>
+</tr>
+<tr class="row-even"><td>Tether</td>
+<td>Absolutely positioned elements.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Code Vision.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'recent',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

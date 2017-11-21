@@ -1,0 +1,279 @@
+{% extends "base_today.html" %}
+{% load staticfiles thumbnail %}
+{#<h1>{{ object.title }}</h1>#}
+{#<p>{{ object.description }}</p>#}
+{#<p>Reporter: {{ object.location_false }}</p>#}
+{#<p>Published: {{ object.event_day|date }}</p>#}
+{#<p>Date: {{ now|date }}</p>#}
+
+{% block extra_css %}
+	<script src="https://use.fontawesome.com/09242e5130.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="main-wrapper">
+	    <div class="main">
+	        <div class="main-inner">
+	        	
+
+	            <div class="content">
+<!-- 	                <div class="event-gallery owl-carousel">
+	
+						<img src="{% static 'img/tmp/medium-1.jpg' %}" alt="Political Ha Ha Box: Free Public Art | Mission Dist.">
+						<img src="{% static 'img/tmp/medium-2.jpg' %}" alt="Fog City Movie Night: Finding Nemo">
+						<img src="{% static 'img/tmp/medium-3.jpg' %}" alt="Carnaval Festival 2016: Sunday">
+						<img src="{% static 'img/tmp/medium-4.jpg' %}" alt="Return of the Cypher Samurai Sunday Night">
+						<img src="{% static 'img/tmp/medium-5.jpg' %}" alt="Free Rare Potrero Hill Guided Walking Tour">
+						<img src="{% static 'img/tmp/medium-1.jpg' %}" alt="Free Comedy: Showtime at Showdown">
+						<img src="{% static 'img/tmp/medium-2.jpg' %}" alt="Lower Polk / TL Art Walk">
+						<img src="{% static 'img/tmp/medium-1.jpg' %}" alt="Political Ha Ha Box: Free Public Art | Mission Dist.">
+					</div> -->
+
+<div class="page-header">
+	<div class="page-header-inner">
+		<div class="container-fluid">
+			<div class="page-header-category">
+				<!-- <i class="fa fa-film"></i> -->
+				{{ object.category.icon|safe }}
+			</div><!-- /.page-header-category -->
+			<p id="object_event_id" style='visibility: hidden;' >{{ object.pk}}</p>
+			<div class="page-header-content">
+				<h1>{{object.title|title}}</h1>
+				<p>{{object.category}}</p>
+				<address>{{ object.location_false }}</address>
+			</div><!-- /.page-header-content -->
+
+			<div class="page-header-actions">
+				<div class="social">
+				{% if object.fb_href %}
+					<a href="{{object.fb_href}}" target="_blank"><i class="fa fa-facebook"></i></a>
+				{% endif %}
+				{% if object.vk_href %}
+					<a href="{{object.fb_href}}" target="_blank"><i class="fa fa-vk"></i></a>
+				{% endif %}
+<!-- 					<a href="#"><i class="fa fa-linkedin"></i></a>
+					<a href="#"><i class="fa fa-vimeo"></i></a>
+					<a href="#"><i class="fa fa-google"></i></a> -->
+				</div>
+			</div>
+		</div><!-- /.container-fluid -->
+	</div><!-- /.page-header-inner -->
+</div><!-- /.page-header -->
+
+<!-- <div class="container-fluid">
+	<ol class="breadcrumb">
+		<li><a href="index.html">EVE</a></li>
+		<li><a href="events.html">Events</a></li>
+		<li class="active">Event Detail</li>
+	</ol>
+</div> -->
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-8">
+			<div class="information">
+				<p>
+				 	<strong>Опис події</strong>
+				</p>
+
+				<p>
+					{{object.description}}
+				</p>
+
+				<!-- <p>
+					Fusce consectetur diam at lectus lacinia, eget sollicitudin lorem pretium. Etiam euismod nulla nec laoreet venenatis. Curabitur sodales condimentum tristique. Curabitur pellentesque, tortor eget vulputate eleifend, odio lectus posuere odio, in varius justo dui quis felis.
+				</p> -->
+
+				<!-- <h3>Amenities</h3>
+
+				<ul class="amenities">
+				    <li class="yes">Conditioning</li>
+				    <li class="no">Balcony</li>
+				    <li class="no">Bedding</li>
+				    <li class="no">Cable TV</li>
+				    <li class="no">Cleaning</li>
+				    <li class="no">Cofee pot</li>
+				    <li class="no">Computer</li>
+				    <li class="yes">Cot</li>
+				    <li class="no">Dishwasher</li>
+				    <li class="yes">DVD</li>
+				    <li class="no">Fan</li>
+				    <li class="yes">Fridge</li>
+				    <li class="no">Grill</li>
+				    <li class="yes">Hairdryer</li>
+				    <li class="no">Heating</li>
+				    <li class="yes">Hi-fi</li>
+				    <li class="no">Internet</li>
+				    <li class="yes">Iron</li>
+				    <li class="no">Juicer</li>
+				    <li class="yes">Lift</li>
+				    <li class="yes">Microwave</li>
+				    <li class="yes">Oven</li>
+				    <li class="no">Parking</li>
+				    <li class="no">Parquet</li>
+				    <li class="yes">Pool</li>
+				    <li class="yes">Radio</li>
+				    <li class="no">Roof terrace</li>
+				    <li class="no">Smoking</li>
+				    <li class="yes">Terrace</li>
+				    <li class="no">Toaster</li>
+				    <li class="no">Towelwes</li>
+				    <li class="no">Use of pool</li>
+				</ul> -->
+
+
+				<div class="information-comments">
+					<!-- <strong>8.7</strong> Total rating based on 20 unique reviews. -->
+					<strong><i class="fa fa-eye"></i></strong> Кількість переглядів :
+				</div>
+
+				<!-- <div class="information-actions">
+					<a href="#"><i class="entypo-save"></i> <span>Save</span></a>
+					<a href="#"><i class="entypo-heart"></i> <span>Like</span></a>					
+				</div> -->
+			</div><!-- /.information -->
+
+			<div class="comments">
+<!-- 				<div class="comments-title">
+					<h3>Коментарії</h3>
+				</div> -->
+
+				<h3>Коментарії</h3>
+				<!-- <div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-numposts="5"></div> -->
+				<div class="fb-comments" data-href="{{ request.build_absolute_uri }}" data-width="774" data-numposts="10"></div>		
+
+				
+<!-- 					<div class="comment">
+						<div class="comment-image">
+							<a href="#" style="background-image: url('{% static 'img/tmp/medium-1.jpg' %}');"></a>
+						</div>
+
+						<div class="comment-content">
+							<div class="comment-body">
+								<p>
+									Nunc commodo lacus consequat, pulvinar nunc quis, lacinia diam. Aliquam eu enim vitae sapien luctus vehicula. Praesent ex sem, pellentesque eget dignissim at, tempor vel dolor. Maecenas aliquet eget mauris non congue. Sed vitae tempus dui.
+								</p>
+							</div>
+
+							<div class="comment-meta">
+								<a href="#">John Doe</a>
+								<a href="#">May 29, 2012</a>
+								<a href="#">7.5 / 10</a>
+							</div>
+
+							<div class="comment-actions">
+								<a href="#"><i class="entypo-save"></i> <span>Save</span></a>
+								<a href="#"><i class="entypo-heart"></i> <span>Like</span></a>
+							</div>
+						</div>
+					</div> -->
+				
+			</div><!-- /.comments -->
+
+<!-- 			<div class="comment-form">
+				<div class="comment-form-title">
+					<h3>Post New Comment</h3>
+				</div>
+
+				<form method="post" action="?">
+					<div class="row">
+						<div class="col-sm-7">
+							<div class="form-group">
+								<label>Message</label>
+								<textarea class="form-control"></textarea>
+							</div>
+						</div>
+
+						<div class="col-sm-5">
+							<div class="form-group">
+								<label>Name</label>
+								<input type="email" class="form-control">
+							</div>													
+
+							<div class="form-group">
+								<label>E-mail</label>
+								<input type="email" class="form-control">
+							</div>						
+
+							<div class="form-group">
+								<label>Website</label>
+								<input type="email" class="form-control">
+							</div>										
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-secondary pull-right">Post Comment</button>
+				</form>
+			</div> -->			
+
+<!-- 			<div class="page-navigation">
+				<a href="#" class="prev"><i class="fa fa-chevron-left"></i> Carnaval Festival 2016: Sunday </a>
+				<a href="#" class="next">Lower Polk / TL Art Walk <i class="fa fa-chevron-right"></i></a>
+			</div> -->
+		</div><!-- /.col-* -->
+
+		<div class="col-sm-4">
+			<div class="widget purchase">
+				<h3>{{object.title}}</h3>
+				<p>{{object.event_day|date:"d E Y"}} 
+				{% if object.category.id != 3 %}
+				{{object.event_time}} 
+				{% endif %}
+				</p>
+				{% if object.price %}
+				<strong>Ціна: {{object.price}}</strong>
+				{% endif %}
+			{% if object.ticket %}
+				<p>Квитки мож купити тут: {{object.ticket}}</p>
+			{% endif %}
+				{% if object.source != 'user' %}
+				<div class="purchase-action">
+					<p id ="source_p_hate_css">Джерело :</p>
+					<a href="{{object.source_href}}" class="btn btn-secondary pull-right">
+						{{object.source}}						
+					</a>
+				</div>
+				{% endif %}
+				
+					
+
+				
+			</div><!-- /.purchase -->
+			<div class="widget gallery">
+				{% thumbnail object.photo '347x347' crop='center' as image %}
+					<img src="{{ image.url }}" alt="" />
+				{% endthumbnail %}
+			</div>
+			<div class="widget map">
+				<div class="map-inner">
+					<div id="event-map"></div>
+
+					<div class="map-address">
+						{{ object.location_false }}<br>
+						<!-- New York, Brooklyn -->
+					</div><!-- /.map-address -->
+				</div><!-- /.map-inner -->
+			</div><!-- /.map -->
+
+			<!-- <div class="widget category">
+				<ul>
+					<li><i class="fa fa-cutlery"></i> Restaurant</li>
+					<li><i class="fa fa-wifi"></i> Wireless</li>
+					<li><i class="fa fa-coffee"></i> Coffee Shop</li>
+				</ul>
+			</div> -->
+
+			
+		</div><!-- /.col-* -->
+	</div><!-- /.row -->
+</div><!-- /.container-fluid -->
+	            </div><!-- /.content -->
+	        </div><!-- /.main-inner -->
+	    </div><!-- /.main -->
+    </div><!-- /.main-wrapper -->
+{% endblock %}
+{% block addthis %}
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5913762a775e0f31"></script> 
+{% endblock %}
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'js/event_detail_in_map.js' %}"></script>
+{% endblock %}

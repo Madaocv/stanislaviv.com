@@ -1,0 +1,245 @@
+{% load staticfiles madaotag %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	{% block extra_css %}
+
+	{% endblock %}
+<!-- 	<script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' /> -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" type="text/css">
+    <link href="{% static 'libraries/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'libraries/entypo/style.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'libraries/owl-carousel/owl.carousel.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'libraries/owl-carousel/owl.carousel.default.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'css/eve-black-blue.css' %}" rel="stylesheet" type="text/css" id="css-primary">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'css/classic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/classic.date.css' %}">
+    <link rel="stylesheet" href="{% static 'css/classic.time.css' %}">
+
+    <title>today.if.ua {% block meta_title %}{% endblock meta_title %}</title>
+
+</head>
+
+<body class="">
+<!-- FB comments -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/uk_UA/sdk.js#xfbml=1&version=v2.9&appId=1670791243225872";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- END FB comments -->
+
+<div class="header-sticky">
+    <div class="header-sticky-inner">
+        <div class="header-logo">
+            <a href="{% url 'core:home' %}">
+                <span class="eve-logo"><i class="fa fa-star"></i></span> 
+            </a>
+        </div><!-- /.header-logo -->
+<!-- Я хз шо за дівка така -->
+	<div class="nav-primary navbar-toggleable-md collapse">
+		<ul class="nav nav-pills">
+			<li class="nav-item has-children">
+				<a href="{% url 'core:home' %}" class="nav-link {% if request.path == '/main/'%} active {% endif %} ">Головна</a>
+
+<!-- 				<ul class="sub-menu">
+					<li><a href="index.html">Creative Hero</a></li>
+					<li><a href="index-video.html">Video Hero</a></li>								
+					<li><a href="index-map.html">Google Map Hero</a></li>
+				</ul> -->
+			</li>
+			<li class="nav-item"><a href="{% url 'core:events_today' %}" class="nav-link {% if request.path == '/events_todat/'%} active {% endif %}">Сьогодні</a></li>
+			<li class="nav-item"><a href="{% url 'core:events_soon' %}" class="nav-link {% if request.path == '/events_soon/'%} active {% endif %}">Скоро</a></li>
+			<li class="nav-item"><a href="{% url 'core:map' %}" class="nav-link {% if request.path == '/'%} active {% endif %}">Події на карті</a></li>
+			<!-- <li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a></li> -->
+			<li class="nav-item"><a href="{% url 'core:contact' %}" class="nav-link {% if request.path == '/contact/'%} active {% endif %}">Контакти</a></li>
+		</ul>
+	</div><!-- /.nav-primary -->
+
+<button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target=".header .nav-primary">
+	<span></span>
+	<span></span>
+	<span></span>
+</button>	
+    </div><!-- /.header-sticky-inner -->
+</div><!-- /.header-sticky -->
+
+<div class="page-wrapper">
+	<div class="header-wrapper">
+	<div class="header">		
+		<div class="header-inner">
+			<div class="header-top">
+				<div class="container-fluid">
+					<div class="header-logo">
+						<a href="{% url 'core:home' %}">
+							<span class="eve-logo"><i class="fa fa-star"></i></span> 
+							<strong>
+								<span>Що відбувається в місті Івано-Франківськ ?</span>
+							</strong>
+						</a>
+					</div><!-- /.header-logo -->
+
+					<!-- <div class="header-toggle sidenav-trigger">
+					</div> -->
+					<!-- /.header-toggle -->
+					
+					<div class="header-btn">
+			<a id="propouse_event" class="btn btn-secondary" href="{% url 'core:submit_event'%}">Розмістити Подію</a><!-- /.btn -->
+
+
+{#<a class="btn btn-secondary" href="{% url "core:students_add_js" %}" id="add_student_test"">Submit</a>#}
+{#<a class="btn btn-secondary" href="" id="add_event"">True Submit</a>#}
+<!-- /.btn -->
+					</div><!-- /.header-btn -->
+					<!-- Search -->
+<!-- 					<div class="header-search">
+						<form>
+							<div class="input-group">
+								<input type="text" class="form-control" 
+								       autocomplete="off" 
+									   data-provide="typeahead"
+									   placeholder="Search for events in the city ...">
+
+								<div class="input-group-addon">
+									<i class="fa fa-search"></i>
+								</div>
+							</div>
+						</form>
+					</div> -->
+					<!-- End Search -->
+
+				</div><!-- /.container-fluid -->
+			</div><!-- /.header-top -->
+
+			<div class="header-bottom">
+				<div class="container-fluid">
+					<div class="nav-primary navbar-toggleable-md collapse">
+	<ul class="nav nav-pills">
+<!-- 		<li class="nav-item has-children">
+			<a href="#" class="nav-link ">Головна</a>
+
+			<ul class="sub-menu">
+				<li><a href="index.html">Creative Hero</a></li>
+				<li><a href="index-video.html">Video Hero</a></li>								
+				<li><a href="index-map.html">Google Map Hero</a></li>
+			</ul>
+		</li> -->
+		<li class="nav-item"><a href="{% url 'core:home' %}" class="nav-link {% if request.path == '/main/'%} active {% endif %}">Головна</a></li>
+		<li class="nav-item"><a href="{% url 'core:events_today' %}" class="nav-link {% if request.path == '/events_todat/'%} active {% endif %}">Сьогодні</a></li>
+		<li class="nav-item"><a href="{% url 'core:events_soon' %}" class="nav-link {% if request.path == '/events_soon/'%} active {% endif %}">Скоро</a></li>
+		<li class="nav-item"><a href="{% url 'core:map' %}" class="nav-link {% if request.path == '/'%} active {% endif %}">Події на карті</a></li>
+<!-- 		<li class="nav-item"><a href="blog.html" class="nav-link ">Blog</a></li> -->
+		<li class="nav-item"><a href="{% url 'core:contact' %}" class="nav-link {% if request.path == '/contact/'%} active {% endif %}">Контакти</a></li>
+	</ul>
+</div><!-- /.nav-primary -->
+
+<button class="navbar-toggler hidden-lg-up" type="button" data-toggle="collapse" data-target=".header .nav-primary">
+	<span></span>
+	<span></span>
+	<span></span>
+</button>	
+
+					<!-- <ul class="nav nav-social nav-right">
+						<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-facebook"></i></a></li>
+						<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-twitter"></i></a></li>
+						<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-google"></i></a></li>
+						<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+
+					<ul class="nav nav-pills nav-secondary nav-right">
+						<li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+						<li class="nav-item"><a href="register.html" class="nav-link">Register</a></li>
+					</ul> -->					
+				</div><!-- /.container-fluid -->
+			</div><!-- /.header-bottom -->
+		</div><!-- /.header-inner -->
+	</div><!-- /.header -->
+</div><!-- /.header-wrapper -->
+{% block status_message %}
+
+{% endblock status_message %}
+	{% block content %}
+
+    {% endblock %}
+
+    <div class="footer-wrapper">
+	<div class="footer">
+		<div class="container-fluid">
+			<div class="footer-inner">
+				<div class="footer-top">
+					<div class="footer-center">
+						<p class="white">&copy; {% quotes %}</p>
+					</div><!-- /.footer-left -->
+
+					<!-- <div class="footer-right">
+						<ul class="nav nav-social">
+							<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-facebook"></i></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-twitter"></i></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-dribbble"></i></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-linkedin"></i></a></li>
+							<li class="nav-item"><a href="#" class="nav-link"><i class="fa fa-google"></i></a></li>
+						</ul>					
+					</div> -->
+				</div>
+
+			</div><!-- /.footer-inner -->
+		</div><!-- /.container-fluid -->
+	</div><!-- /.footer -->
+</div><!-- /.footer-wrapper -->
+
+
+
+
+<script src="//maps.googleapis.com/maps/api/js" type="text/javascript"></script>
+
+<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+
+<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfIsnTO2FmRi3kWyLD3Es-Hb_ump6744g&libraries=places"></script> -->
+<!-- <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+<script src="https://npmcdn.com/bootstrap@4.0.0-alpha.5/dist/js/bootstrap.min.js"></script> -->
+
+
+
+<script type="text/javascript" src="{% static 'js/tether.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'libraries/bootstrap-typeahead/bootstrap3-typeahead.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'libraries/owl-carousel/owl.carousel.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.gmap3.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.ytplayer.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/jquery.ezmark.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/picker.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/picker.date.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/picker.time.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/uk_UA.js' %}"></script>
+
+<script type="text/javascript" src="{% static 'js/eve.js' %}"></script>
+
+
+<!--   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script> -->
+
+<!--   <script src="https://cdn.jsdelivr.net/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+<!--   <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.0.0/js/bootstrap-datetimepicker.min.js"></script> -->
+<!-- <script src="{% static 'js/main.js' %}"></script> -->
+
+{% block extra_js %}{% endblock extra_js %}
+
+{% block addthis %}
+{% endblock %}
+</body>
+</html>

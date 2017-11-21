@@ -1,0 +1,898 @@
+{% extends "base_today.html" %}
+
+{% load static from staticfiles %}
+
+{% block extra_css %}
+<!--  -->
+<meta property="og:title" content="Події Івано-Франківська" /> 
+<meta property="og:url" content="{{ request.build_absolute_uri }}"/>
+<meta property="og:type" content="website" /> 
+<meta property="og:image" content="http://127.0.0.1:8000/static/img/tmp/fullsize.jpg" />
+<!-- <meta property="og:image" content="{% static 'img/tmp/fullsize.jpg' %}" /> -->
+<meta property="og:image:width" content="400" />
+<meta property="og:image:height" content="300" /> 
+<meta property="og:description" content="Події м.Івано-Франківськ :)" />
+<!--  -->
+	<script src="https://use.fontawesome.com/09242e5130.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="main-wrapper">
+	    <div class="main">
+	        <div class="main-inner">
+	        	
+
+	            <div class="content">
+	                <div class="hero">	
+	<div id="map-google"></div>
+<!-- Бокова панель мо потом добавлю -->
+	<!-- <div class="hero-categories">
+		<h2>Browse Categories</h2>
+
+		<ul class="nav nav-stacked">
+			<li class="nav-item"><a href="#" class="nav-link">Team Buildings <span>(256)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Conferences <span>(82)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Workshops <span>(135)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Discotheques <span>(585)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Coworking Meetups <span>(23)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Concerts <span>(325)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Exhibitions <span>(43)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Nightlife <span>(43)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Summer Classes <span>(256)</span></a></li>
+			<li class="nav-item"><a href="#" class="nav-link">Personal Couching <span>(32)</span></a></li>
+		</ul>
+	</div> -->	
+</div>
+<!-- Бокси тож незнаю пока шо з ними робити -->
+<!-- <div class="boxes">
+	<div class="container-fluid no-padding">
+		<div class="box-wrapper">
+			<div class="box">
+				<i class="entypo-layers"></i>
+				<h2>Unlimited Variations</h2>
+
+				<p>
+					Mauris in euismod ante. In accumsan orci sed turpis blandit elementum. Vestibulum.
+				</p>
+			</div>
+		</div>
+
+		<div class="box-wrapper">
+			<div class="box">
+				<i class="entypo-fingerprint"></i>
+				<h2>Unique Design</h2>
+
+				<p>
+					Mauris in euismod ante. In accumsan orci sed turpis blandit elementum. Vestibulum.
+				</p>
+			</div>
+		</div>
+
+		<div class="box-wrapper">
+			<div class="box">
+				<i class="entypo-documents"></i>
+				<h2>Well Organized</h2>
+
+				<p>
+					Mauris in euismod ante. In accumsan orci sed turpis blandit elementum. Vestibulum.
+				</p>
+			</div>
+		</div>
+
+		<div class="box-wrapper">
+			<div class="box">
+				<i class="entypo-tablet-mobile-combo"></i>
+				<h2>Fully Responsive</h2>
+
+				<p>
+					Mauris in euismod ante. In accumsan orci sed turpis blandit elementum. Vestibulum.
+				</p>
+			</div>
+		</div>						
+	</div>
+</div> -->
+
+<div class="container-fluid">
+	<div class="page-title">
+		<h2>На карті відмічені події в м.Івано-Франківськ які відбудуться сьогодні</h2>
+
+		<p>
+			Vivamus viverra imperdiet efficitur. Fusce sagittis arcu sed fringilla blandit. In quis orci eu sapien porttitor feugiat pretium at metus. Donec nec arcu sed augue convallis vestibulum vitae eget mauris.
+		</p>
+	</div><!-- /.page-title -->
+	<!-- Афіша подій -->
+	<div class="events-list">	
+		<div class="events-list-content">
+				<!-- Події від завтра -->
+				{% for event in plus_one_day %}
+				{% if forloop.first %} 
+				<h3> 
+					<!-- <strong>Friday, May 27, 2016</strong> -->
+					<strong>{{event.event_day|date:"l, N d, Y"}}</strong>
+					<a href="#" value="{{event.event_day}}" id="zalupa_rok_1">Показати на карті</a>
+					{#<a href="#" value="{{event.event_day}}" >Показати на карті</a>#}
+				</h3>
+				{% endif %}
+				{% endfor %}
+				<ul>	
+				{% for event in plus_one_day %}
+				{% if forloop.first %} 	
+									
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+								<p>
+									<a href="{{event.get_absolute_url}}"><img src="{{event.photo.url}}" alt="Free Rare Potrero Hill Guided Walking Tour"></a>
+									<!-- Pellentesque ac vestibulum eros. Suspendisse placerat consequat condimentum. Donec laoreet posuere diam, id tempus erat feugiat et. Quisque et dolor eros. Morbi fringilla. -->
+									{{ event.description|truncatewords:30}}
+								</p>
+							
+						</li>
+				{% endif %}
+				{% endfor %}
+				{% for event in plus_one_day|slice:"1:" %}
+					 
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									<!-- All day -->
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Comedy: Showtime at Showdown</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+						</li>
+						{% endfor %}
+				</ul>
+						  
+			<!-- Pozavtra eventu -->
+
+				{% for event in plus_two_day %}
+				{% if forloop.first %} 
+				<h3> 
+					<!-- <strong>Friday, May 27, 2016</strong> -->
+					<strong>{{event.event_day|date:"l, N d, Y"}}</strong>
+					<a href="#" value="{{event.event_day}}" id="zalupa_rok_2">Показати на карті</a>
+				</h3>
+				{% endif %}
+				{% endfor %}
+
+				<ul>	
+				{% for event in plus_two_day %}
+				{% if forloop.first %} 	
+									
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+								<p>
+									<a href="{{event.get_absolute_url}}"><img src="{{event.photo.url}}" alt="Free Rare Potrero Hill Guided Walking Tour"></a>
+									<!-- Pellentesque ac vestibulum eros. Suspendisse placerat consequat condimentum. Donec laoreet posuere diam, id tempus erat feugiat et. Quisque et dolor eros. Morbi fringilla. -->
+									{{ event.description|truncatewords:30}}
+								</p>
+							
+						</li>
+				{% endif %}
+				{% endfor %}
+				{% for event in plus_two_day|slice:"1:" %}
+					 
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									<!-- All day -->
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Comedy: Showtime at Showdown</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+						</li>
+						{% endfor %}
+				</ul>		  
+				<!-- +3 -->
+				{% for event in plus_three_day %}
+				{% if forloop.first %} 
+				<h3> 
+					<!-- <strong>Friday, May 27, 2016</strong> -->
+					<strong>{{event.event_day|date:"l, N d, Y"}}</strong>
+					<a href="#" value="{{event.event_day}}" id="zalupa_rok_3">Показати на карті</a>
+				</h3>
+				{% endif %}
+				{% endfor %}
+
+				<ul>	
+				{% for event in plus_three_day %}
+				{% if forloop.first %} 	
+									
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+								<p>
+									<a href="{{event.get_absolute_url}}"><img src="{{event.photo.url}}" alt="Free Rare Potrero Hill Guided Walking Tour"></a>
+									<!-- Pellentesque ac vestibulum eros. Suspendisse placerat consequat condimentum. Donec laoreet posuere diam, id tempus erat feugiat et. Quisque et dolor eros. Morbi fringilla. -->
+									{{ event.description|truncatewords:30}}
+								</p>
+							
+						</li>
+				{% endif %}
+				{% endfor %}
+				{% for event in plus_three_day|slice:"1:" %}
+					 
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									<!-- All day -->
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Comedy: Showtime at Showdown</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+						</li>
+						{% endfor %}
+				</ul>		  
+				<!-- +4 -->
+				{% for event in plus_four_day %}
+				{% if forloop.first %} 
+				<h3> 
+					<!-- <strong>Friday, May 27, 2016</strong> -->
+					<strong>{{event.event_day|date:"l, N d, Y"}}</strong>
+					<a href="#" value="{{event.event_day}}" id="zalupa_rok_4">Показати на карті</a>
+				</h3>
+				{% endif %}
+				{% endfor %}
+
+				<ul>	
+				{% for event in plus_four_day %}
+				{% if forloop.first %} 	
+									
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+								<p>
+									<a href="{{event.get_absolute_url}}"><img src="{{event.photo.url}}" alt="Free Rare Potrero Hill Guided Walking Tour"></a>
+									<!-- Pellentesque ac vestibulum eros. Suspendisse placerat consequat condimentum. Donec laoreet posuere diam, id tempus erat feugiat et. Quisque et dolor eros. Morbi fringilla. -->
+									{{ event.description|truncatewords:30}}
+								</p>
+							
+						</li>
+				{% endif %}
+				{% endfor %}
+				{% for event in plus_four_day|slice:"1:" %}
+					 
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									<!-- All day -->
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Comedy: Showtime at Showdown</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+						</li>
+						{% endfor %}
+				</ul>		  
+				<!-- +5 -->
+				{% for event in plus_five_day %}
+				{% if forloop.first %} 
+				<h3> 
+					<!-- <strong>Friday, May 27, 2016</strong> -->
+					<strong>{{event.event_day|date:"l, N d, Y"}}</strong>
+					<a href="#" value="{{event.event_day}}" id="zalupa_rok_5">Показати на карті</a>
+				</h3>
+				{% endif %}
+				{% endfor %}
+
+				<ul>	
+				{% for event in plus_five_day %}
+				{% if forloop.first %} 	
+									
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+								<p>
+									<a href="{{event.get_absolute_url}}"><img src="{{event.photo.url}}" alt="Free Rare Potrero Hill Guided Walking Tour"></a>
+									<!-- Pellentesque ac vestibulum eros. Suspendisse placerat consequat condimentum. Donec laoreet posuere diam, id tempus erat feugiat et. Quisque et dolor eros. Morbi fringilla. -->
+									{{ event.description|truncatewords:30}}
+								</p>
+							
+						</li>
+				{% endif %}
+				{% endfor %}
+				{% for event in plus_five_day|slice:"1:" %}
+					 
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									<!-- All day -->
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Comedy: Showtime at Showdown</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+						</li>
+						{% endfor %}
+				</ul>	
+					  <!-- +6  -->
+				{% for event in plus_six_day %}
+				{% if forloop.first %} 
+				<h3> 
+					<!-- <strong>Friday, May 27, 2016</strong> -->
+					<strong>{{event.event_day|date:"l, N d, Y"}}</strong>
+					<a href="#" value="{{event.event_day}}" id="zalupa_rok_6">Показати на карті</a>
+				</h3>
+				{% endif %}
+				{% endfor %}
+
+				<ul>	
+				{% for event in plus_six_day %}
+				{% if forloop.first %} 	
+									
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+								<p>
+									<a href="{{event.get_absolute_url}}"><img src="{{event.photo.url}}" alt="Free Rare Potrero Hill Guided Walking Tour"></a>
+									<!-- Pellentesque ac vestibulum eros. Suspendisse placerat consequat condimentum. Donec laoreet posuere diam, id tempus erat feugiat et. Quisque et dolor eros. Morbi fringilla. -->
+									{{ event.description|truncatewords:30}}
+								</p>
+							
+						</li>
+				{% endif %}
+				{% endfor %}
+				{% for event in plus_six_day|slice:"1:" %}
+					 
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									<!-- All day -->
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Comedy: Showtime at Showdown</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+						</li>
+						{% endfor %}
+				</ul>
+					  <!-- +7 -->
+				{% for event in plus_seven_day %}
+				{% if forloop.first %} 
+				<h3> 
+					<!-- <strong>Friday, May 27, 2016</strong> -->
+					<strong>{{event.event_day|date:"l, N d, Y"}}</strong>
+					<a href="#" value="{{event.event_day}}" id="zalupa_rok_7">Показати на карті</a>
+				</h3>
+				{% endif %}
+				{% endfor %}
+
+				<ul>	
+				{% for event in plus_seven_day %}
+				{% if forloop.first %} 	
+									
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+								<p>
+									<a href="{{event.get_absolute_url}}"><img src="{{event.photo.url}}" alt="Free Rare Potrero Hill Guided Walking Tour"></a>
+									<!-- Pellentesque ac vestibulum eros. Suspendisse placerat consequat condimentum. Donec laoreet posuere diam, id tempus erat feugiat et. Quisque et dolor eros. Morbi fringilla. -->
+									{{ event.description|truncatewords:30}}
+								</p>
+							
+						</li>
+				{% endif %}
+				{% endfor %}
+				{% for event in plus_seven_day|slice:"1:" %}
+					 
+						<li>					
+							<div class="event-list-header">
+								<div class="event-list-header-inner">		
+									<strong class="events-list-date">
+									<!-- All day -->
+									{% if event.category.id != 3 %}
+										{{event.event_time}} 
+									
+									{% endif %}
+									</strong>
+
+								<!-- <h4 class="events-list-name"><a href="event.html">Free Comedy: Showtime at Showdown</a></h4> -->
+								<h4 class="events-list-name"><a href="{{event.get_absolute_url}}">{{event.title}}</a></h4>
+
+									<span class="events-list-price">{{event.price}}</span>
+								</div>
+							</div>
+							
+						</li>
+						{% endfor %}
+				</ul>
+					  <!-- end + -->
+				
+		</div>
+	</div>
+</div><!-- /.container-fluid -->
+
+<!-- Партнери -->
+<!-- <div class="partners">
+	<div class="container-fluid">
+		<div class="page-title page-title-fullwidth-description page-title-no-padding-top center">
+			<h2>Partners of EVE Template</h2>
+
+			<p>
+				Vivamus viverra imperdiet efficitur. Fusce sagittis arcu sed fringilla blandit. In quis orci eu sapien porttitor feugiat pretium at metus. <br>Donec nec arcu sed augue convallis vestibulum vitae eget mauris.
+			</p>
+		</div>
+
+		<a href="#">
+			<img src="{% static 'img/tmp/partners/partner-1.png' %}" alt="" height="50">
+		</a>
+
+		<a href="#">
+			<img src="{% static 'img/tmp/partners/partner-2.png' %}" alt="" height="74">
+		</a>
+
+		<a href="#">
+			<img src="{% static 'img/tmp/partners/partner-3.png' %}" alt="" height="64">
+		</a>
+
+		<a href="#">
+			<img src="{% static 'img/tmp/partners/partner-4.png' %}" alt="" height="50">
+		</a>
+
+		<a href="#">
+			<img src="{% static 'img/tmp/partners/partner-5.png' %}" alt="" height="40">
+		</a>
+	</div>
+</div> -->
+
+<!-- Популярні локації -->
+<!-- <div class="container-fluid">
+	<div class="page-title">
+		<h2>Popular Locations</h2>
+
+		<p>
+			Vivamus viverra imperdiet efficitur. Fusce sagittis arcu sed fringilla blandit. In quis orci eu sapien porttitor feugiat pretium at metus. Donec nec arcu sed augue convallis vestibulum vitae eget mauris.
+		</p>
+	</div>
+
+	<div class="row">	
+		
+			<div class="col-xl-2 col-5">
+				<div class="card-simple">
+	<div class="card-simple-image">
+		<a href="#" style="background-image: url({% static 'img/tmp/medium-1.jpg' %}');"></a>
+	</div>
+
+	<div class="card-simple-content">
+		<h3 class="card-simple-title">New York</h3>
+		<h4 class="card-simple-subtitle">328 events</h4>
+		<a href="#" class="btn btn-secondary">See All Events</a>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-xl-2 col-5">
+				<div class="card-simple">
+	<div class="card-simple-image">
+		<a href="#" style="background-image: url('{% static 'img/tmp/medium-2.jpg' %}');"></a>
+	</div>
+
+	<div class="card-simple-content">
+		<h3 class="card-simple-title">Chicago</h3>
+		<h4 class="card-simple-subtitle">328 events</h4>
+		<a href="#" class="btn btn-secondary">See All Events</a>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-xl-2 col-5">
+				<div class="card-simple">
+	<div class="card-simple-image">
+		<a href="#" style="background-image: url('{% static 'img/tmp/medium-3.jpg' %}');"></a>
+	</div>
+
+	<div class="card-simple-content">
+		<h3 class="card-simple-title">San Francisco</h3>
+		<h4 class="card-simple-subtitle">328 events</h4>
+		<a href="#" class="btn btn-secondary">See All Events</a>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-xl-2 col-5">
+				<div class="card-simple">
+	<div class="card-simple-image">
+		<a href="#" style="background-image: url('{% static 'img/tmp/medium-4.jpg' %}');"></a>
+	</div>
+
+	<div class="card-simple-content">
+		<h3 class="card-simple-title">Philadelphia</h3>
+		<h4 class="card-simple-subtitle">328 events</h4>
+		<a href="#" class="btn btn-secondary">See All Events</a>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-xl-2 col-5">
+				<div class="card-simple">
+	<div class="card-simple-image">
+		<a href="#" style="background-image: url('{% static 'img/tmp/medium-5.jpg' %}');"></a>
+	</div>
+
+	<div class="card-simple-content">
+		<h3 class="card-simple-title">Montreal</h3>
+		<h4 class="card-simple-subtitle">328 events</h4>
+		<a href="#" class="btn btn-secondary">See All Events</a>
+	</div>
+</div>
+			</div>
+		
+	</div>
+</div> -->
+
+<!-- Популярні події  -->
+<!-- <div class="container-fluid push-bottom">
+	<div class="page-title">
+		<h2>Most Popular Events</h2>
+
+		<p>
+			Vivamus viverra imperdiet efficitur. Fusce sagittis arcu sed fringilla blandit. In quis orci eu sapien porttitor feugiat pretium at metus. Donec nec arcu sed augue convallis vestibulum vitae eget mauris.
+		</p>
+	</div>
+
+	<div class="row">
+		
+			<div class="col-lg-3 col-xl-2 col-5">
+				<div class="card">
+	<div class="card-inner">
+		<div class="card-image">
+			<a href="event.html" style="background-image: url('{% static 'img/tmp/medium-1.jpg' %}');">
+				<span><i class="fa fa-search"></i></span>
+			</a>
+
+			<div class="card-actions">
+				<a href="#"><i class="entypo-save"></i> <span>Save</span></a>
+				<a href="#"><i class="entypo-heart"></i> <span>Like</span></a>
+			</div>>
+		</div>
+
+		<div class="card-content">	
+			<div class="card-date">
+				<strong>27</strong>
+				<span>Apr</span>
+			</div>
+
+			<h3 class="card-title">
+				<a href="event.html">Political Ha Ha Box: Free Public Art | Mission Dist.</a>
+			</h3>
+
+			<h4 class="card-subtitle">
+				<a href="#">New York / Brooklyn</a>
+			</h4>
+		</div>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-lg-3 col-xl-2 col-5">
+				<div class="card">
+	<div class="card-inner">
+		<div class="card-image">
+			<a href="event.html" style="background-image: url('{% static 'img/tmp/medium-2.jpg' %}');">
+				<span><i class="fa fa-search"></i></span>
+			</a>
+
+			<div class="card-actions">
+				<a href="#"><i class="entypo-save"></i> <span>Save</span></a>
+				<a href="#"><i class="entypo-heart"></i> <span>Like</span></a>
+			</div>
+		</div>
+
+		<div class="card-content">	
+			<div class="card-date">
+				<strong>27</strong>
+				<span>Apr</span>
+			</div>
+
+			<h3 class="card-title">
+				<a href="event.html">Fog City Movie Night: Finding Nemo</a>
+			</h3>
+
+			<h4 class="card-subtitle">
+				<a href="#">New York / Brooklyn</a>
+			</h4>
+		</div>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-lg-3 col-xl-2 col-5">
+				<div class="card">
+	<div class="card-inner">
+		<div class="card-image">
+			<a href="event.html" style="background-image: url('{% static 'img/tmp/medium-3.jpg' %}');">
+				<span><i class="fa fa-search"></i></span>
+			</a>
+
+			<div class="card-actions">
+				<a href="#"><i class="entypo-save"></i> <span>Save</span></a>
+				<a href="#"><i class="entypo-heart"></i> <span>Like</span></a>
+			</div>
+		</div>
+
+		<div class="card-content">	
+			<div class="card-date">
+				<strong>27</strong>
+				<span>Apr</span>
+			</div>
+
+			<h3 class="card-title">
+				<a href="event.html">Carnaval Festival 2016: Sunday</a>
+			</h3>
+
+			<h4 class="card-subtitle">
+				<a href="#">New York / Brooklyn</a>
+			</h4>
+		</div>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-lg-3 col-xl-2 col-5">
+				<div class="card">
+	<div class="card-inner">
+		<div class="card-image">
+			<a href="event.html" style="background-image: url('{% static 'img/tmp/medium-4.jpg' %}');">
+				<span><i class="fa fa-search"></i></span>
+			</a>
+
+			<div class="card-actions">
+				<a href="#"><i class="entypo-save"></i> <span>Save</span></a>
+				<a href="#"><i class="entypo-heart"></i> <span>Like</span></a>
+			</div>
+		</div>
+
+		<div class="card-content">	
+			<div class="card-date">
+				<strong>27</strong>
+				<span>Apr</span>
+			</div>
+
+			<h3 class="card-title">
+				<a href="event.html">Return of the Cypher Samurai Sunday Night</a>
+			</h3>
+
+			<h4 class="card-subtitle">
+				<a href="#">New York / Brooklyn</a>
+			</h4>
+		</div>
+	</div>
+</div>
+			</div>
+		
+			<div class="col-lg-3 col-xl-2 col-5">
+				<div class="card">
+	<div class="card-inner">
+		<div class="card-image">
+			<a href="event.html" style="background-image: url('{% static 'img/tmp/medium-5.jpg' %}');">
+				<span><i class="fa fa-search"></i></span>
+			</a>
+
+			<div class="card-actions">
+				<a href="#"><i class="entypo-save"></i> <span>Save</span></a>
+				<a href="#"><i class="entypo-heart"></i> <span>Like</span></a>
+			</div>
+		</div>
+
+		<div class="card-content">	
+			<div class="card-date">
+				<strong>27</strong>
+				<span>Apr</span>
+			</div>
+
+			<h3 class="card-title">
+				<a href="event.html">Free Rare Potrero Hill Guided Walking Tour</a>
+			</h3>
+
+			<h4 class="card-subtitle">
+				<a href="#">New York / Brooklyn</a>
+			</h4>
+		</div>
+	</div>
+</div>
+			</div>
+		
+	</div>
+</div> -->
+
+<!-- Цього точно непотрібно -->
+<!-- <div class="cta-wrapper pull-bottom">
+	<div class="cta">
+		<div class="cta-map"></div>
+		
+		<div class="cta-inner">
+			<div class="container-fluid">
+				<div class="cta-content-wrapper">
+					<div class="cta-content">
+						<h2>Do you want to promote an event?</h2>
+						<h3>We will present your event to masses.</h3>
+					</div>
+					
+					<div class="cta-action">
+						<a href="#" class="btn btn-black btn-lg">Create Account Now</a>
+					</div>
+				</div>				
+				<div class="cta-image"></div>
+			</div>
+		</div>		
+	</div>
+</div> -->
+	            </div><!-- /.content -->
+	        </div><!-- /.main-inner -->
+	    </div><!-- /.main -->
+    </div><!-- /.main-wrapper -->
+
+
+{% endblock %}
+{% block addthis %}
+<!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5913762a775e0f31"></script> 
+{% endblock %}
+
+
+{% block extra_js %}
+<script type="text/javascript" src="{% static 'js/full_map.js' %}"></script>
+{% endblock extra_js %}

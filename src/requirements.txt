@@ -1,0 +1,23 @@
+appdirs==1.4.3
+awesome-slugify==1.6.5
+beautifulsoup4==4.6.0
+dateparser==0.6.0
+Django==1.10.6
+django-crispy-forms==1.6.1
+MySQL-python==1.2.5
+olefile==0.44
+packaging==16.8
+peewee==2.10.1
+Pillow==4.0.0
+pkg-resources==0.0.0
+pyparsing==2.2.0
+python-dateutil==2.6.0
+pytz==2013b0
+regex==2017.4.29
+ruamel.ordereddict==0.4.9
+ruamel.yaml==0.14.11
+six==1.10.0
+-e git+https://github.com/mariocesar/sorl-thumbnail.git@7ce76bc1ef798a63cbf89b5df83de4da4b12e98d#egg=sorl_thumbnail
+timestring==1.6.2
+tzlocal==1.4
+Unidecode==0.4.20
